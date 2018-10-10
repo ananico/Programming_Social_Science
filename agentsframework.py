@@ -5,9 +5,10 @@ Created on Wed Sep 19 11:07:05 2018
 @author: bn13amn
 """
 import random
-
+import math
+#create the Agent class which can then be imported similar to a library
 class Agent:
-    
+  #this class can take three argument besides its self   
     def __init__(self, environment, agents, neighbourhood):
         
         self.x=(random.randint(0,99))
@@ -17,9 +18,7 @@ class Agent:
         self.agents= agents
         self.neighbourhood=neighbourhood
         self.agentstore=0
-       # self.wolves=wolves
-        #self.wolves.x=(random.randint(0,99))
-        #self.wolves.y=(random.randint(0,99))
+   #allows "agents" to move around when called
     def move(self):
             if random.random() < 0.5:
                 self.y = (self.y + int((self.store)* 0.01)) % 100
@@ -30,23 +29,18 @@ class Agent:
                 self.x = (self.x + int((self.store)* 0.01)) % 100
             else:
                 self.x = (self.x - int((self.store)* 0.01)) % 100
-                
+   #gives "agents" the posibility to "eat" the environment when called   
+           
     def meat(self): # can you make it eat what is left?
             if  self.environment[self.y][self.x] > 10:
                 self.environment[self.y][self.x] -= 10
                 self.store += 10
-      
-    #def distance_between(agents_row_a, agents_row_b):
-     #       distance_between=(((agents_row_a.x - agents_row_b.x)**2) + ((agents_row_a.y - agents_row_b.y)**2))**0.5
-      #  return distance=distance_between(self.agents[], self.agents[])
-               
-        
-                #def distance_between(agents_row_a, agents_row_b):
-#    distance_between = (((agents_row_a[0] - agents_row_b[0])**2) + ((agents_row_a[1] - agents_row_a[1])**2))**0.5
-    #distance = distance_between(agents_row_a[0], agents_row_b[0])
-    #print(distance) 
-#    return distance_between
- 
+            else:
+                 self.environment[self.y][self.x] -= self.environment[self.y][self.x]
+                 self.store += self.environment[self.y][self.x]
+                 
+    #when called the function allows "agents" to find how far they are from each other
+    #after each move     
     def share_with_neighbours(self, neighbourhood):
         for agent in self.agents:
             if agent==self:
@@ -58,30 +52,25 @@ class Agent:
                 self.store = ave
                 agent.store = ave
                 #print("sharing " + str(dist) + " " + str(ave))
-
+                
+    #calculates the distance between two agents
     def distance_between(self, agent):
-        return (((self.x - agent.x)**2) + ((self.y - agent.y)**2))**0.5
+        return math.sqrt(((self.x - agent.x)**2) + ((self.y - agent.y)**2))
 
 
    
-                
-                
-                
-                
+#create a new class with similar properties to the agent class above                 
 class Wolves:
-    
-    def __init__(self, agents):
+    #specifies which argument the class can have
+    def __init__(self,agents, neigh_wolves):
         self.x=(random.randint(0,99))
         self.y=(random.randint(0,99))
+        #creates the "wolves"
+        self.store = 0
+        self.agents=agents
+        self.neigh_wolves=neigh_wolves
         
-        #self.store = 0
-        #self.agent=agent
-        #self.neigh_wolves=neigh_wolves
-        #self.agents=agents
-        #self.agents= agents
-        #self.vecini=vecini
-        #self.agentstore=0
-        
+    #gives wolves the option to move around  
     def move_wolves(self):
                     if random.random() < 0.5:
                         self.y = (self.y + 1) % 100
@@ -94,31 +83,18 @@ class Wolves:
                         self.x = (self.x - 1) % 100
     
    
-    
-    def delete_agent (self, agents):
-        for agent in agents:
+    #based on the if condition agents previously created are removed 
+    #if the condition is fullfield
+    def delete_agent (self):
+        for agent in self.agents:
             dist = self.distance_between(agent) 
             #print(dist)
-            if dist <= 10 :
-               agents.remove(agent)
-        
+            if dist <= self.neigh_wolves :
+               self.agents.remove(agent)
+       
     def distance_between(self, agent):
-        return (((self.x - agent.x)**2) + ((self.y - agent.y)**2))**0.5
+        return math.sqrt(((self.x - agent.x)**2) + ((self.y - agent.y)**2))
 
     
 
-""" 
-def share_with_neighbours (self, neighbourhood):
-        result = None
-        for i in range (len(self.agents)):
-            for j in range(len(self.agents)):
-                if i ==j:
-                    continue 
-                distance=distance_between(self.agents[i], 
-                                          self.agents[j])
-                if result == None:
-                    result=distance 
-                elif distance < result:
-                    result= distance
-        return result 
-   """       
+      

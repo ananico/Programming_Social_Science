@@ -8,17 +8,32 @@ Created on Mon Oct  1 14:16:08 2018
 ##First practical Leeds 
 #import math
 import random 
-#import operator
 import matplotlib.pyplot
 import agentsframework
 import csv
 import matplotlib.animation
-#import argparse
 
+"""if you would want to run the file from a command line, the below lines would allow
+ the user to just write the file's name and the wnted value for each parameter
+ i.e file_name.py 10 100 20 10 5 (random values for each parameter)"""
+#import sys
+#num_of_agents =int(sys.argv[1])
+#num_of_iterations =int(sys.argv[2])
+#neighbourhood = int(sys.argv[3])
+#num_of_wolves=int(sys.argv[4])
+#neigh_wolves=int(sys.argv[5])
 
-#read in the data
+#set the initial values 
+agents = [] 
+wolves=[]
+num_of_agents = 10
+num_of_iterations = 100
+neighbourhood = 20
+num_of_wolves=10
+neigh_wolves=5
+
+#read in the data from a text file
 dataset=open("in.txt", newline='')
-#rowlist=[]
 environment=[]
 reader=csv.reader(dataset, quoting=csv.QUOTE_NONNUMERIC)
 
@@ -29,57 +44,62 @@ for row in reader:
     environment.append(rowlist)
 dataset.close()  
       
-#starting values   
-#model.py
-agents = [] 
-wolves=[]
-num_of_agents = 10
-num_of_iterations = 100
-neighbourhood = 20
-num_of_wolves=10
-#neigh_wolves=25
   
-#adds the agents
+"""to the empty lists declared above add agents and wolves 
+based on the Agent & Wolves classes on the agentsframework file 
+"""
 for i in range(num_of_agents):
     agents.append(agentsframework.Agent(environment,agents, neighbourhood))  
 for j in range(num_of_wolves):
-    wolves.append(agentsframework.Wolves(agents))
+    wolves.append(agentsframework.Wolves(agents, neigh_wolves))
 
-##move the agents
+#set the values for figure size&axes 
 fig = matplotlib.pyplot.figure(figsize=(7, 7))
 ax = fig.add_axes([0, 0, 1, 1])
 
 carry_on = True
 
+#define a function which is then used as an input in the animation command
 def update(frame_number):
     
     fig.clear()  
     global carry_on
+     
+    #creates a condition to make the animation  stop
+    #in this case, when all the sheeps are eaten the animation stops
+    if len(agents)==0:
+        carry_on=False
+        print("Stopping condition ")
     
-
+    #makes agents move, eat and calculate the distance between 
+    #themselves based on the functions defined in the Agent class
     for j in range(num_of_iterations):
-        random.shuffle(agents)
+        random.shuffle(agents)#shuffles the agents 
         for i in range(len(agents)):
             agents[i].move()
             agents[i].meat()
             agents[i].share_with_neighbours (neighbourhood)
             print(agents[i].store)
-       
+   
+    #plots the agents as they move and represented by white dots 
     for i in range(len(agents)):
         matplotlib.pyplot.scatter(agents[i].y,agents[i].x, color= 'white')   
    
+    #makes wolves move and delete agents from the list
+    #based on the functions defined in the Wolves class
     for j in range(num_of_iterations):
-        random.shuffle(wolves)
+        random.shuffle(wolves)#shuffles wolves
         for m in range(len(wolves)):
            wolves[m].move_wolves()
-           wolves[m].delete_agent(agents)
-  
+           wolves[m].delete_agent()
+    #plots the wolves as they move and represented by black dots 
     for j in range(len(wolves)):
         matplotlib.pyplot.scatter(wolves[j].y,wolves[j].x, color= 'black')    
+  
     #makes the agents stop once they have eaten over 800 
-   # if all ((agent.store)>8000 for agent in agents):
-    #    carry_on=False
-     #   print("stopping condition")
+    #if all ((wolf.store)>8000 for wolf in wolves):
+     #   carry_on=False
+      #  print("stopping condition")
     ##first stopping condition
     #for agent in agents:        
      #   if agent.store > 8000: 
@@ -88,9 +108,12 @@ def update(frame_number):
 
     #matplotlib.pyplot.scatter(agents[2].y,agents[2].x, color= 'black')
         #print(agents[i].y,agents[i].x)
+    
+    #sets boundries for the x & y axes
     matplotlib.pyplot.xlim(0, 99)
     matplotlib.pyplot.ylim(0, 99)    
     matplotlib.pyplot.imshow(environment)
+
 
 def gen_function(b = [0]):
     a = 0
@@ -104,12 +127,7 @@ def gen_function(b = [0]):
 animation = matplotlib.animation.FuncAnimation(fig, update, interval=1000, frames= gen_function(), repeat=False)
 matplotlib.pyplot.show()     
 
-#parser=argparse.ArgumentParser(description="Pass on the values for different arguments")
 
-#parser.add_argument('integers', type=int,
- #                    help='integer to pass to the program')
- #args = parser.parse_args(['10','100','20'])
- #print(args.square**2)
 
 """#Practical 1
 #creates a radom integer to start
