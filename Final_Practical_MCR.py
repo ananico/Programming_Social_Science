@@ -12,7 +12,18 @@ import matplotlib.pyplot
 import agentsframework
 import csv
 import matplotlib.animation
+#import time
+#import numpy as np
 
+#time_spend=[]
+#start = time.clock()
+
+# The code to run, here.
+#num_of_agents=[]
+#for num_of_agents in int(np.arange(50, 500, 50): 
+ #   start = time.clock()
+
+#import operator
 """if you would want to run the file from a command line, the below lines would allow
  the user to just write the file's name and the wnted value for each parameter
  i.e file_name.py 10 100 20 10 5 (random values for each parameter)"""
@@ -23,13 +34,15 @@ import matplotlib.animation
 #num_of_wolves=int(sys.argv[4])
 #neigh_wolves=int(sys.argv[5])
 
-#set the initial values 
+
+    #empty lists for adding sets of coordinates to
 agents = [] 
 wolves=[]
-num_of_agents = 10
+#set the initial values 
+num_of_agents = 50
 num_of_iterations = 100
 neighbourhood = 20
-num_of_wolves=10
+num_of_wolves=30
 neigh_wolves=5
 
 #read in the data from a text file
@@ -65,28 +78,28 @@ def update(frame_number):
     fig.clear()  
     global carry_on
      
-    #creates a condition to make the animation  stop
-    #in this case, when all the sheeps are eaten the animation stops
+    """creates a condition to make the animation  stop
+    in this case, when all the sheeps are eaten the animation stops"""
     if len(agents)==0:
         carry_on=False
         print("Stopping condition ")
     
-    #makes agents move, eat and calculate the distance between 
-    #themselves based on the functions defined in the Agent class
+    """makes agents move, eat and calculate the distance between 
+    themselves based on the functions defined in the Agent class"""
     for j in range(num_of_iterations):
         random.shuffle(agents)#shuffles the agents 
         for i in range(len(agents)):
             agents[i].move()
             agents[i].meat()
             agents[i].share_with_neighbours (neighbourhood)
-            print(agents[i].store)
+            #print(agents[i].store)
    
     #plots the agents as they move and represented by white dots 
     for i in range(len(agents)):
         matplotlib.pyplot.scatter(agents[i].y,agents[i].x, color= 'white')   
    
-    #makes wolves move and delete agents from the list
-    #based on the functions defined in the Wolves class
+    """makes wolves move and delete agents from the list
+    based on the functions defined in the Wolves class"""
     for j in range(num_of_iterations):
         random.shuffle(wolves)#shuffles wolves
         for m in range(len(wolves)):
@@ -97,27 +110,19 @@ def update(frame_number):
         matplotlib.pyplot.scatter(wolves[j].y,wolves[j].x, color= 'black')    
   
     #makes the agents stop once they have eaten over 800 
-    #if all ((wolf.store)>8000 for wolf in wolves):
+    #if all ((agent.store)>8000 for agent in agents):
      #   carry_on=False
       #  print("stopping condition")
-    ##first stopping condition
-    #for agent in agents:        
-     #   if agent.store > 8000: 
-      #       carry_on=False
-       #      print("stopping condition")
-
-    #matplotlib.pyplot.scatter(agents[2].y,agents[2].x, color= 'black')
-        #print(agents[i].y,agents[i].x)
+       
     
     #sets boundries for the x & y axes
-    matplotlib.pyplot.xlim(0, 99)
-    matplotlib.pyplot.ylim(0, 99)    
+    matplotlib.pyplot.xlim(0, 300)
+    matplotlib.pyplot.ylim(0, 300)    
     matplotlib.pyplot.imshow(environment)
 
 
 def gen_function(b = [0]):
     a = 0
-    #global carry_on #Not actually needed as we're not assigning, but clearer
     while (carry_on) :
         yield a			# Returns control and waits next call.
         a = a + 1
@@ -127,9 +132,14 @@ def gen_function(b = [0]):
 animation = matplotlib.animation.FuncAnimation(fig, update, interval=1000, frames= gen_function(), repeat=False)
 matplotlib.pyplot.show()     
 
-
+#end = time.clock()
+#time_spend.append(end-start)
+#print("time = " + str(end - start))
 
 """#Practical 1
+Contains intial stages of the code, which was then reduced to the final version above
+
+
 #creates a radom integer to start
 #between 0 and 99
 y0=random.randint(0,99)
@@ -141,15 +151,11 @@ if random_number<0.5:
    
 else:
     y0-=1
-   
-
 print(y0)
 
-if random_number<0.5:
-    
+if random_number<0.5:   
     x0+=1
-else:
-    
+else:  
     x0-=1
 print(x0)
 
@@ -184,13 +190,10 @@ if random_number<0.5:
    
 else:
    agents[0][0]-=1
-   
 
-if random_number<0.5:
-    
+if random_number<0.5:  
     agents[0][1]+=1
-else:
-    
+else:  
    agents[0][1]-=1
 
 
@@ -218,7 +221,11 @@ matplotlib.pyplot.ylim(0, 99)
 matplotlib.pyplot.xlim(0, 99)
 matplotlib.pyplot.scatter(agents[0][1],agents[0][0])
 matplotlib.pyplot.scatter(agents[1][1],agents[1][0])
+
+#makes the agent furthest east red
 matplotlib.pyplot.scatter(a[1], a[0], color='red')
+
+
 matplotlib.pyplot.show()
 
 
@@ -268,51 +275,5 @@ for agents_row_a in agents:
         print(distance)
         
         
-##final part using a class
 
-#read in the data
-dataset=open("in.txt", newline='')
-#rowlist=[]
-environment=[]
-reader=csv.reader(dataset, quoting=csv.QUOTE_NONNUMERIC)
-
-for row in reader:
-    rowlist=[]
-    for value in row:
-        rowlist.append(value)
-    environment.append(rowlist)
-dataset.close()  
-    
-    
-#starting values   
-
-#model.py
-num_of_agents = 10
-num_of_iterations = 100
-neighbourhood = 20
-agents = []   
-#adds the agents
-for i in range(num_of_agents):
-    agents.append(agentsframework.Agent(environment,agents, neighbourhood))    
-
-#agents=random.shuffle(agents)
-#moves the agents  
-#for j in range(num_of_iterations):
- #   random.shuffle(agents)
-  #  for i in range(num_of_agents):
-   #     agents[i].move()
-    #    agents[i].meat()
-     #   agents[i].share_with_neighbours (neighbourhood)
-#matplotlib.pyplot.xlim(0, 99)
-#matplotlib.pyplot.ylim(0, 99)
-#matplotlib.pyplot.imshow(environment)
-#for i in range(num_of_agents):
-#    matplotlib.pyplot.scatter(agents[i].x, agents[i].y)
-#matplotlib.pyplot.show()
-
-#for agents_row_a in agents:
- #   for agents_row_b in agents:
-  #      distance = distance_between(agents_row_a, agents_row_b)
-        #print(distance)
-        
    """    
