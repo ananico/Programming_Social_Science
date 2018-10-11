@@ -42,7 +42,7 @@ wolves=[]
 num_of_agents = 50
 num_of_iterations = 100
 neighbourhood = 20
-num_of_wolves=30
+num_of_wolves=40
 neigh_wolves=5
 
 #read in the data from a text file

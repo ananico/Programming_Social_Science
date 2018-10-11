@@ -11,7 +11,8 @@ class Agent:
   #this class can take three argument besides its self   
     def __init__(self, environment, agents, neighbourhood):
         self.environment = environment
-        self.x=(random.randint(0,len(self.environment)))
+        self.x=(random.randint(0,len(self.environment))) #make it start randomly, 
+        #based on the length of the environment 
         self.y=(random.randint(0,len(self.environment)))
         self.store = 0
         self.agents= agents
