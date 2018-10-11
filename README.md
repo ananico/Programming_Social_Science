@@ -6,7 +6,7 @@ The stopping process is triggered by a condition where, if the wolves are at a c
 
 The main part of the code is based on the [GEOG5995 Programming for Social Scientists](http://www.geog.leeds.ac.uk/courses/computing/study/core-python-phd/)
 module from The University of Leeds. Some extra parts were added such as:
-*the part of the code which adds the wolves
-*an option the run the code from the command line by directly imputing the arument values
-*property to make the x and y variable private
+-the part of the code which adds the wolves
+-an option the run the code from the command line by directly imputing the arument values
+-property to make the x and y variable private
 
