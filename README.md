@@ -10,6 +10,7 @@ module from The University of Leeds. Some extra parts were added such as:
 * an option to run the code from the command line by directly imputing argument values
 * property to make the x and y variable private
 * an option to allow the user to input value for argumes when the programm is initialised 
+* print out the maximum distance between agents
 
 Some of the extra parts are commented out(command line and asking usr to input values), as a result those will not run. If you want to test those parts just remove the "#" sign and add it to the equivalent parts being used at the moment. 
 
