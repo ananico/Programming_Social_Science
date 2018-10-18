@@ -1,15 +1,24 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Sep 19 11:07:05 2018
+The following code was developed based on the material taught in 
+GEOG5990M Programming for Spatial Analysts: Core Skills, by 
+Dr Andy Evans, University of Leeds.
 
-@author: bn13amn
+author:Ana Nicoriciu
 """
 import random
 import math
 #create the Agent class which can then be imported similar to a library
+"""
+For both classes created in this file, the x and y variables are set as private, which is represented by the double underscore (__)
+This implies the values cannot be changed outsied the class. However, if they were just protected, they could be changed, due to the 
+@property functions set at the end of each class. 
+
+"""
 class Agent:
     
-  #this class can take three argument besides its self   
+  #this class can take three argument besides its self 
+
     def __init__(self, environment, agents, neighbourhood):
         self.environment = environment
         self.__x=(random.randint(0,len(self.environment))) #make it start randomly, 
@@ -22,8 +31,10 @@ class Agent:
    #allows "agents" to move around when called
     def move(self):
             if random.random() < 0.5:
-    #diving by 300 creates a Torus effects which brings the points back if they value is above
-    #the value of the axis when being plottted. 
+"""
+diving by 300 creates a Torus effects which brings the points back if the value is above
+the value of the axis when being plottted
+""" 
                 self.__y = (self.__y + int((self.store)* 0.01)) % 300
             else:
                 self.__y = (self.__y - int((self.store)* 0.01)) % 300
@@ -71,13 +82,13 @@ class Agent:
     def y(self):
         return self.__y
     
-    @x.setter
-    def x(self):
-        return self.__x
+    #@x.setter
+    #def x(self):
+        #return self.__x
         
-    @y.setter
-    def y(self):
-        return self.__y    
+    #@y.setter
+    #def y(self):
+        #return self.__y    
 
 #create a new class with similar properties to the agent class above                 
 class Wolves:
@@ -102,7 +113,10 @@ class Wolves:
                     else:
                         self.__x = (self.__x - 1) % 300
     
-   
+"""
+The below function removes agents from the list accodring to an if condition, which in this case 
+refers to the distance between a wolf and an agent
+"""
     #based on the if condition agents previously created are removed 
     #if the condition is fullfield
     def delete_agent (self):
@@ -123,10 +137,10 @@ class Wolves:
     def y(self):
         return self.__y
     
-    @x.setter
-    def x(self, value):
-         self.__x=value
+   #@x.setter
+    #def x(self, value):
+         #self.__x=value
         
-    @y.setter
-    def y(self, value):
-         self.__y=value
+    #@y.setter
+    #def y(self, value):
+         #self.__y=value
