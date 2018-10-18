@@ -29,12 +29,13 @@ class Agent:
         self.neighbourhood=neighbourhood
         self.agentstore=0
    #allows "agents" to move around when called
+    """
+    diving by 300 creates a Torus effects which brings the points back if the value is above
+    the value of the axis when being plottted
+    """ 
     def move(self):
             if random.random() < 0.5:
-"""
-diving by 300 creates a Torus effects which brings the points back if the value is above
-the value of the axis when being plottted
-""" 
+
                 self.__y = (self.__y + int((self.store)* 0.01)) % 300
             else:
                 self.__y = (self.__y - int((self.store)* 0.01)) % 300
@@ -113,10 +114,10 @@ class Wolves:
                     else:
                         self.__x = (self.__x - 1) % 300
     
-"""
-The below function removes agents from the list accodring to an if condition, which in this case 
-refers to the distance between a wolf and an agent
-"""
+    """
+    The below function removes agents from the list accodring to an if condition, which in this case 
+    refers to the distance between a wolf and an agent
+    """
     #based on the if condition agents previously created are removed 
     #if the condition is fullfield
     def delete_agent (self):

@@ -12,7 +12,8 @@ import matplotlib.pyplot
 import agentsframework
 import csv
 import matplotlib.animation
-
+#from matplotlib import animation, rc
+#from IPython.display import HTML, Image
 
 """
 if you want to run the file from a command line, the below lines would allow
@@ -70,6 +71,8 @@ for i in range(num_of_agents):
 for j in range(num_of_wolves):
     wolves.append(agentsframework.Wolves(agents, neigh_wolves))
 
+
+#rc('animation', html='html5')
 #set the values for figure size&axes 
 fig = matplotlib.pyplot.figure(figsize=(7, 7))
 ax = fig.add_axes([0, 0, 1, 1])
@@ -77,23 +80,23 @@ ax = fig.add_axes([0, 0, 1, 1])
 carry_on = True
 
 #define a function which is then used as an input in the animation command
+
 def update(frame_number):
-    
+  
     fig.clear()  
     global carry_on
-     
-"""
-creates a condition to make the animation  stop
-in this case, when all the sheeps are eaten the animation stops
-"""
+    """
+    creates a condition to make the animation  stop
+    in this case, when all the sheeps are eaten the animation stops
+    """   
     if len(agents)==0:
         carry_on=False
         print("Stopping condition ")
-    
-"""
-makes agents move, eat and calculate the distance between 
-themselves based on the functions defined in the Agent class
-"""
+        
+    """
+    makes agents move, eat and calculate the distance between 
+    themselves based on the functions defined in the Agent class
+    """
     for j in range(num_of_iterations):
         random.shuffle(agents)#randomise the order in which agents are processed at each iteration 
         for i in range(len(agents)):
@@ -106,10 +109,10 @@ themselves based on the functions defined in the Agent class
     for i in range(len(agents)):
         matplotlib.pyplot.scatter(agents[i]._Agent__y,agents[i]._Agent__x, color= 'white')   
    
-"""
-makes wolves move and delete agents from the list
-based on the functions defined in the Wolves class
-"""
+    """
+    makes wolves move and delete agents from the list
+    based on the functions defined in the Wolves class
+    """
     for j in range(num_of_iterations):
         random.shuffle(wolves)#randomise the order in which wolves are processed at each iteration 
         for m in range(len(wolves)):
@@ -140,7 +143,9 @@ def gen_function(b = [0]):
         #print(a)
 
 animation = matplotlib.animation.FuncAnimation(fig, update, interval=1000, frames= gen_function(), repeat=False)
-matplotlib.pyplot.show()     
+matplotlib.pyplot.show()
 
+#animation.save('P:\modules\python leeds\Programming_Social_Science/animation.gif', writer='imagemagick', fps=60)
+#animation.save('ABM_animation.mp4', fps=30)
 
 
