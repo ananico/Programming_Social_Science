@@ -3,6 +3,8 @@
 The following code was developed based on the material taught in 
 GEOG5990M Programming for Spatial Analysts: Core Skills, by 
 Dr Andy Evans, University of Leeds.
+
+author:Ana Nicoriciu
 """
 #packages required to run the programm (already existent in Python)
 import random 
