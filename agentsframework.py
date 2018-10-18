@@ -12,7 +12,7 @@ import math
 """
 For both classes created in this file, the x and y variables are set as private, which is represented by the double underscore (__)
 This implies the values cannot be changed outsied the class. However, if they were just protected, they could be changed, due to the 
-@property functions set at the end of each class. 
+@property functions set at the end of each class, which is currently as a comment
 
 """
 class Agent:
