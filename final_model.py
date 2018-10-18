@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Oct  1 14:16:08 2018
-
-@author: n21731an
+The following code was developed based on the material taught in 
+GEOG5990M Programming for Spatial Analysts: Core Skills, by 
+Dr Andy Evans, University of Leeds.
 """
-
-##First practical Leeds 
-#import math
+#packages required to run the programm (already existent in Python)
 import random 
 import matplotlib.pyplot
 import agentsframework
@@ -14,11 +12,11 @@ import csv
 import matplotlib.animation
 
 
-
-
-"""if you want to run the file from a command line, the below lines would allow
- the user to just write the file's name and the wnted value for each parameter
- i.e file_name.py 10 100 20 10 5 (random values for each parameter)"""
+"""
+if you want to run the file from a command line, the below lines would allow
+the user to just write the file's name and the wnted value for each parameter
+i.e file_name.py 10 100 20 10 5 (random values for each parameter)
+"""
     #import sys
     #num_of_agents =int(sys.argv[1])
     #num_of_iterations =int(sys.argv[2])
@@ -27,7 +25,7 @@ import matplotlib.animation
     #neigh_wolves=int(sys.argv[5])
     
 """
-When you start the program, the program could be set up to ask the user to 
+when you start the program, the program could be set up to ask the user to 
 input values for each argument, whihc are them to be used by the program to run. 
 This can be achieved by using the following lines (# needs to be removed)   
 """
@@ -39,7 +37,8 @@ This can be achieved by using the following lines (# needs to be removed)
 #empty lists for adding sets of coordinates to
 agents = [] 
 wolves=[]
-#set the initial values 
+#set the initial values
+#these values can be changed by the user
 num_of_agents = 50
 num_of_iterations = 100
 neighbourhood = 20
@@ -56,10 +55,12 @@ for row in reader:
     for value in row:
         rowlist.append(value)
     environment.append(rowlist)
+    #always remember to close the file
 dataset.close()  
       
   
-"""to the empty lists declared above add agents and wolves 
+"""
+add agents and wolves to the empty lists declared above 
 based on the Agent & Wolves classes on the agentsframework file 
 """
 for i in range(num_of_agents):
@@ -79,16 +80,20 @@ def update(frame_number):
     fig.clear()  
     global carry_on
      
-    """creates a condition to make the animation  stop
-    in this case, when all the sheeps are eaten the animation stops"""
+"""
+creates a condition to make the animation  stop
+in this case, when all the sheeps are eaten the animation stops
+"""
     if len(agents)==0:
         carry_on=False
         print("Stopping condition ")
     
-    """makes agents move, eat and calculate the distance between 
-    themselves based on the functions defined in the Agent class"""
+"""
+makes agents move, eat and calculate the distance between 
+themselves based on the functions defined in the Agent class
+"""
     for j in range(num_of_iterations):
-        random.shuffle(agents)#shuffles the agents 
+        random.shuffle(agents)#randomise the order in which agents are processed at each iteration 
         for i in range(len(agents)):
             agents[i].move()
             agents[i].meat()
@@ -99,10 +104,12 @@ def update(frame_number):
     for i in range(len(agents)):
         matplotlib.pyplot.scatter(agents[i]._Agent__y,agents[i]._Agent__x, color= 'white')   
    
-    """makes wolves move and delete agents from the list
-    based on the functions defined in the Wolves class"""
+"""
+makes wolves move and delete agents from the list
+based on the functions defined in the Wolves class
+"""
     for j in range(num_of_iterations):
-        random.shuffle(wolves)#shuffles wolves
+        random.shuffle(wolves)#randomise the order in which wolves are processed at each iteration 
         for m in range(len(wolves)):
            wolves[m].move_wolves()
            wolves[m].delete_agent()
