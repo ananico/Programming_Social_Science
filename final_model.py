@@ -12,18 +12,10 @@ import matplotlib.pyplot
 import agentsframework
 import csv
 import matplotlib.animation
-#import time
-#import numpy as np
 
-#time_spend=[]
-#start = time.clock()
 
-# The code to run, here.
-#num_of_agents=1
-#for num_of_agents in int(np.arange(50, 500, 50): 
- #   start = time.clock()
 
-    #import operator
+
 """if you want to run the file from a command line, the below lines would allow
  the user to just write the file's name and the wnted value for each parameter
  i.e file_name.py 10 100 20 10 5 (random values for each parameter)"""
@@ -34,8 +26,17 @@ import matplotlib.animation
     #num_of_wolves=int(sys.argv[4])
     #neigh_wolves=int(sys.argv[5])
     
+"""
+When you start the program, the program could be set up to ask the user to 
+input values for each argument, whihc are them to be used by the program to run. 
+This can be achieved by using the following lines (# needs to be removed)   
+"""
+    #num_of_agents =int(input("Set the numbers of sheeps to be in the environment"))
+    #num_of_iterations =int(input("Set how many time you want the 'animals to move'"))
+    #num_of_wolves=int(input("Set the number of wolves"))
 
-    #empty lists for adding sets of coordinates to
+    
+#empty lists for adding sets of coordinates to
 agents = [] 
 wolves=[]
 #set the initial values 
@@ -96,7 +97,7 @@ def update(frame_number):
    
     #plots the agents as they move and represented by white dots 
     for i in range(len(agents)):
-        matplotlib.pyplot.scatter(agents[i].y,agents[i].x, color= 'white')   
+        matplotlib.pyplot.scatter(agents[i]._Agent__y,agents[i]._Agent__x, color= 'white')   
    
     """makes wolves move and delete agents from the list
     based on the functions defined in the Wolves class"""
@@ -107,7 +108,7 @@ def update(frame_number):
            wolves[m].delete_agent()
     #plots the wolves as they move and represented by black dots 
     for j in range(len(wolves)):
-        matplotlib.pyplot.scatter(wolves[j].y,wolves[j].x, color= 'black')    
+        matplotlib.pyplot.scatter(wolves[j]._Wolves__y,wolves[j]._Wolves__x, color= 'black')    
   
     #makes the agents stop once they have eaten over 800 
     #if all ((agent.store)>8000 for agent in agents):
@@ -132,7 +133,5 @@ def gen_function(b = [0]):
 animation = matplotlib.animation.FuncAnimation(fig, update, interval=1000, frames= gen_function(), repeat=False)
 matplotlib.pyplot.show()     
 
-   # end = time.clock()
-   # time_spend.append(end-start)
-#print("time = " + str(end - start))
+
 

@@ -8,12 +8,13 @@ import random
 import math
 #create the Agent class which can then be imported similar to a library
 class Agent:
+    
   #this class can take three argument besides its self   
     def __init__(self, environment, agents, neighbourhood):
         self.environment = environment
-        self.x=(random.randint(0,len(self.environment))) #make it start randomly, 
+        self.__x=(random.randint(0,len(self.environment))) #make it start randomly, 
         #based on the length of the environment 
-        self.y=(random.randint(0,len(self.environment)))
+        self.__y=(random.randint(0,len(self.environment)))
         self.store = 0
         self.agents= agents
         self.neighbourhood=neighbourhood
@@ -23,23 +24,23 @@ class Agent:
             if random.random() < 0.5:
     #diving by 300 creates a Torus effects which brings the points back if they value is above
     #the value of the axis when being plottted. 
-                self.y = (self.y + int((self.store)* 0.01)) % 300
+                self.__y = (self.__y + int((self.store)* 0.01)) % 300
             else:
-                self.y = (self.y - int((self.store)* 0.01)) % 300
+                self.__y = (self.__y - int((self.store)* 0.01)) % 300
 
             if random.random() < 0.5:
-                self.x = (self.x + int((self.store)* 0.01)) % 300
+                self.__x = (self.__x + int((self.store)* 0.01)) % 300
             else:
-                self.x = (self.x - int((self.store)* 0.01)) % 300
+                self.__x = (self.__x - int((self.store)* 0.01)) % 300
    #gives "agents" the posibility to "eat" the environment when called   
            
     def meat(self): # can you make it eat what is left?
-            if  self.environment[self.y][self.x] > 10:
-                self.environment[self.y][self.x] -= 10
+            if  self.environment[self.__y][self.__x] > 10:
+                self.environment[self.__y][self.__x] -= 10
                 self.store += 10
             else:
-                 self.environment[self.y][self.x] -= self.environment[self.y][self.x]
-                 self.store += self.environment[self.y][self.x]
+                 self.environment[self.__y][self.__x] -= self.environment[self.__y][self.__x]
+                 self.store += self.environment[self.__y][self.__x]
                  
     #when called the function allows "agents" to find how far they are from each other
     #after each move     
@@ -59,16 +60,31 @@ class Agent:
                 #print(max(dist_agent))
     #calculates the distance between two agents
     def distance_between(self, agent):
-        return math.sqrt(((self.x - agent.x)**2) + ((self.y - agent.y)**2))
+        return math.sqrt(((self.__x - agent.__x)**2) + ((self.__y - agent.__y)**2))
 
+     
+    @property 
+    def x(self):
+        return self.__x
+    
+    @property 
+    def y(self):
+        return self.__y
+    
+    @x.setter
+    def x(self):
+        return self.__x
+        
+    @y.setter
+    def y(self):
+        return self.__y    
 
-   
 #create a new class with similar properties to the agent class above                 
 class Wolves:
     #specifies which argument the class can have
     def __init__(self,agents, neigh_wolves):
-        self.x=(random.randint(0,300))
-        self.y=(random.randint(0,300))
+        self.__x=(random.randint(0,300))
+        self.__y=(random.randint(0,300))
         #creates the "wolves"
         self.store = 0
         self.agents=agents
@@ -77,14 +93,14 @@ class Wolves:
     #gives wolves the option to move around  
     def move_wolves(self):
                     if random.random() < 0.5:
-                        self.y = (self.y + 1) % 300
+                        self.__y = (self.__y + 1) % 300
                     else:
-                        self.y = (self.y - 1) % 300
+                        self.__y = (self.__y- 1) % 300
         
                     if random.random() < 0.5:
-                        self.x = (self.x + 1) % 300
+                        self.__x = (self.__x + 1) % 300
                     else:
-                        self.x = (self.x - 1) % 300
+                        self.__x = (self.__x - 1) % 300
     
    
     #based on the if condition agents previously created are removed 
@@ -97,21 +113,20 @@ class Wolves:
                self.agents.remove(agent)
        
     def distance_between(self, agent):
-        return math.sqrt(((self.x - agent.x)**2) + ((self.y - agent.y)**2))
-    
+        return math.sqrt(((self.__x - agent._Agent__x)**2) + ((self.__y - agent._Agent__y)**2))
+   
     @property 
     def x(self):
-        return self._x
+        return self.__x
     
     @property 
     def y(self):
-        return self._y
+        return self.__y
     
     @x.setter
     def x(self, value):
-        self._x = value
+         self.__x=value
         
     @y.setter
     def y(self, value):
-        self._y = value
-      
+         self.__y=value
