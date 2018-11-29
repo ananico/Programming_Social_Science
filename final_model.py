@@ -17,7 +17,7 @@ import matplotlib.animation
 
 """
 if you want to run the file from a command line, the below lines would allow
-the user to just write the file's name and the wnted value for each parameter
+the user to just write the file's name and the wanted value for each parameter
 i.e file_name.py 10 100 20 10 5 (random values for each parameter)
 """
     #import sys
@@ -29,7 +29,7 @@ i.e file_name.py 10 100 20 10 5 (random values for each parameter)
     
 """
 when you start the program, the program could be set up to ask the user to 
-input values for each argument, whihc are them to be used by the program to run. 
+input values for each argument, which are then to be used to run the program. 
 This can be achieved by using the following lines (# needs to be removed)   
 """
     #num_of_agents =int(input("Set the numbers of sheeps to be in the environment"))
@@ -86,15 +86,16 @@ def update(frame_number):
     fig.clear()  
     global carry_on
     """
-    creates a condition to make the animation  stop
-    in this case, when all the sheeps are eaten the animation stops
+    Creates a condition to make the animation stop.
+    
+    In this case, when all the sheep are eaten the animation stops
     """   
     if len(agents)==0:
         carry_on=False
         print("Stopping condition ")
         
     """
-    makes agents move, eat and calculate the distance between 
+    makes agents (sheep) move, eat and calculate the distance between 
     themselves based on the functions defined in the Agent class
     """
     for j in range(num_of_iterations):
