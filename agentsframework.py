@@ -12,7 +12,7 @@ import math
 """
 For both classes created in this file, the x and y variables are set as private, which is represented by the double underscore (__)
 This implies the values cannot be changed outsied the class. However, if they were just protected, they could be changed, due to the 
-@property functions set at the end of each class, which is currently as a comment
+@property functions set at the end of each class, which is currently set as a comment
 
 """
 class Agent:
@@ -46,7 +46,7 @@ class Agent:
                 self.__x = (self.__x - int((self.store)* 0.01)) % 300
    #gives "agents" the posibility to "eat" the environment when called   
            
-    def meat(self): # can you make it eat what is left?
+    def meat(self): 
             if  self.environment[self.__y][self.__x] > 10:
                 self.environment[self.__y][self.__x] -= 10
                 self.store += 10
@@ -58,7 +58,7 @@ class Agent:
     #after each move     
     def share_with_neighbours(self, neighbourhood):
         for agent in self.agents:
-            #agents don't compare to themselves
+            #agents do not compare to themselves
             if agent==self:
                 continue
             dist_agent = self.distance_between(agent) 
@@ -93,7 +93,7 @@ class Agent:
 
 #create a new class with similar properties to the agent class above                 
 class Wolves:
-    #specifies which argument the class can have
+    #specifies which argumens the class can have
     def __init__(self,agents, neigh_wolves):
         self.__x=(random.randint(0,300))
         self.__y=(random.randint(0,300))
